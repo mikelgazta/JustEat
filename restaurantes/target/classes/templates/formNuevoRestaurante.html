@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Formulario de Restaurante</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Nuevo Restaurante:</h1>
+		<form action="/restaurantes/guardar" th:object="${restaurante}" method="post">
+			 <div class="form-group">
+		    	<label for="nombre">Nombre:</label>
+		    	<input type="text" class="form-control" id="nombre" name="nombre" required><br>
+			</div>
+			
+			 <div class="form-group">
+		    	<label for="puntuacion">Puntuacion:</label>
+		    	<input type="number" class="form-control" id="puntuacion" name="puntuacion" required><br>
+			</div>
+			 
+			<div class="form-group">
+				<label for="categoria">Categoria</label> 
+				<select class="form-control" id="categoria" name="categoria">
+					<option value="mexicano">Mexicano</option>
+					<option value="hamburguesas">Hamburguesas</option>
+					<option value="sanotes">Sanotes</option>
+					<option value="platosCombi">PlatosCombi</option>
+					<option value="bokatas">Bokatas</option>
+					<option value="italianos">Italianos</option>
+					<option value="asiatico">Asiatico</option>
+					<option value="takeAway">TakeAway</option>
+					<option value="otros">Otros</option>
+				</select>
+			</div>
+			
+			 <div class="form-group">
+		    	<label for="municipio">Municipio:</label>
+		    	<input type="text" class="form-control" id="municipio" name="municipio" required><br>
+			</div>
+			
+			 <div class="form-group">
+		    	<label for="direccion">Direccion:</label>
+		    	<input type="text" class="form-control" id="direccion" name="direccion" required><br>
+			</div>
+			
+			 <div class="form-group">
+		    	<label for="observaciones">Observaciones:</label>
+		    	<textarea id="observaciones" class="form-control" name="observaciones"></textarea><br>
+			</div>
+			
+			<div class="form-group">
+			    <label for="visitado">Visitado:</label>
+			    <input type="checkbox" id="visitado" name="visitado" th:field="${restaurante.visitado}">
+			</div>
+
+			
+		    <button type="submit" class="btn btn-primary">Guardar</button>
+	        <a th:href="@{/restaurantes}" class="btn btn-secondary">Cancelar</a>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Restaurantes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.nav-link.dropdown-toggle').on('click', function(e) {
+            if (!$(this).next().hasClass('show')) {
+                $(this).parents('.dropdown-menu').first().find('.show').removeClass('show');
+            }
+            var $subMenu = $(this).next('.dropdown-menu');
+            $subMenu.toggleClass('show');
+            $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+                $('.dropdown-submenu .show').removeClass('show');
+            });
+            return false;
+        });
+    });
+</script>
+</head>
+<body>
+	<div  class="navbar navbar-expand navbar-dark bg-dark" th:include="navbar :: navbar"></div>
+    <div class="container">
+        <h1>Lista de Restaurantes</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Puntuacion</th>
+                    <th>Categoria</th>
+                    <th>Municipio</th>
+                    <th>Dirección</th>
+                    <th>Observaciones</th>
+                    <th>Visitado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="restaurante : ${restaurantes}">
+                    <td th:text="${restaurante.getNombre()}"></td>
+                    <td th:text="${restaurante.getPuntuacion()}"></td>
+                    <td th:text="${restaurante.getCategoria()}"></td>
+                    <td th:text="${restaurante.getMunicipio()}"></td>
+                    <td th:text="${restaurante.getDireccion()}"></td>
+                    <td th:text="${restaurante.getObservaciones()}"></td>
+                    <td th:text="${restaurante.isVisitado() ? 'Sí' : 'No'}"></td>
+                    <td>
+                        <a th:href="@{/restaurantes/{id}/editar(id=${restaurante.getId_restaurante()})}" class="btn btn-primary btn-sm">Editar</a>
+                        <a th:href="@{/restaurantes/{id}/eliminar(id=${restaurante.getId_restaurante()})}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/restaurantes/nuevo}" class="btn btn-success">Agregar Restaurante</a>
+<!--         <a th:href="@{/categorias}" class="btn btn-primary">Ver Categorias</a> -->
+        <a th:href="@{/}" class="btn btn-danger">Salir</a>
+    </div>
+</body>
+</html>
